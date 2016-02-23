@@ -2,6 +2,7 @@ require 'elb2logstalgia'
 require 'elb2logstalgia/types'
 
 require 'hashie'
+require 'strscan'
 
 module Elb2Logstalgia
   class Entry < Hashie::Dash
@@ -11,11 +12,11 @@ module Elb2Logstalgia
     include Hashie::Extensions::MethodAccess
     include Hashie::Extensions::Dash::Coercion
 
-    property :timestamp, required: true, coerce: Elb2Logstalgia::Types::Timestamp
-    property :hostname, required: true, coerce: Elb2Logstalgia::Types::Hostname
-    property :path, required: true, coerce: Elb2Logstalgia::Types::Address
-    property :response_code, required: true, coerce: Elb2Logstalgia::Types::ResponseCode
-    property :response_size, required: true, coerce: Elb2Logstalgia::Types::ResponseSize
+    property :timestamp, coerce: Elb2Logstalgia::Types::Timestamp
+    property :hostname, coerce: Elb2Logstalgia::Types::Hostname
+    property :path, coerce: Elb2Logstalgia::Types::Path
+    property :response_code, coerce: Elb2Logstalgia::Types::ResponseCode
+    property :response_size, coerce: Elb2Logstalgia::Types::ResponseSize
 
     property :success, coerce: Elb2Logstalgia::Types::Success
     property :response_color, coerce: Elb2Logstalgia::Types::ResponseColor
@@ -42,14 +43,31 @@ module Elb2Logstalgia
 
         params_hash = {}
 
-        keys.map {|k| params_hash[k] = *args.shift}
+        input = *args[0]
+
+        input.each do |pair|
+          k = pair[0]
+          v = pair[1]
+          params_hash[k] = v
+        end
 
         super(params_hash)
 
       rescue StandardError => e
         raise e
       end
+    end
 
+    def output
+      fields = [
+        :timestamp,
+        :hostname,
+        :path,
+        :response_code,
+        :response_size,
+      ]
+
+      fields.map {|x| self.fetch(x).to_s}.join('|')
     end
 
   end

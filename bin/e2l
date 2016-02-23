@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "elb2logstalgia"
+
+require 'methadone'
+
+include Methadone::Main
+include Methadone::CLILogging
+
+include Elb2Logstalgia
+
+main do
+  begin
+    ARGF.each do |line|
+      $stderr.puts line if options[:verbose]
+
+      entry = Elb2Logstalgia::Entry.new(parseLine(line))
+
+      puts entry.output
+    end
+
+  rescue StandardError => e
+    raise e
+  end
+end
+
+version Elb2Logstalgia::VERSION
+description 'Translate ELB log format to Logstalgia'
+
+go!
