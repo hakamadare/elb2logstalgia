@@ -1,4 +1,4 @@
-# Elb2Logstalgia
+# Elb2Logstalgia [![Code Climate](https://codeclimate.com/github/hakamadare/elb2logstalgia/badges/gpa.svg)](https://codeclimate.com/github/hakamadare/elb2logstalgia)
 
 [Logstalgia](http://logstalgia.io/) is a spectacular realtime visualisation tool for web application access logs.  This tool ingests Amazon Web Services Elastic Load Balancing [access logs](http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/access-log-collection.html) and emits log entries formatted according to Logstalgia's custom log format.
 
