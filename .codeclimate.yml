@@ -4,3 +4,7 @@ engines:
     config:
       languages:
       - ruby
+  rubocop:
+    enabled: true
+    exclude_fingerprints:
+    - 27dd2a9fc05d94c34cc69ba09f59a413

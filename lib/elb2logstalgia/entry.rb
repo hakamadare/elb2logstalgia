@@ -76,7 +76,7 @@ module Elb2Logstalgia
 
     private
 
-    def _deriveParams(params, keys)
+    def _deriveParams(params)
       input = Hashie::Mash.new(params)
       derived = Hashie::Mash.new
 
