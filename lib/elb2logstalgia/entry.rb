@@ -51,7 +51,10 @@ module Elb2Logstalgia
           params_hash[k] = v
         end
 
-        super(params_hash)
+        # now we can derive some additional values
+        derived_params = _deriveParams(params_hash, keys)
+
+        super(derived_params)
 
       rescue StandardError => e
         raise e
@@ -65,9 +68,22 @@ module Elb2Logstalgia
         :path,
         :response_code,
         :response_size,
+        :success,
       ]
 
       fields.map {|x| self.fetch(x).to_s}.join('|')
+    end
+
+    private
+
+    def _deriveParams(params, keys)
+      input = Hashie::Mash.new(params)
+      derived = Hashie::Mash.new
+
+      # calculate success from response code
+      derived.success = input.response_code.to_i < 400 ? 1 : 0
+
+      derived.merge(input)
     end
 
   end

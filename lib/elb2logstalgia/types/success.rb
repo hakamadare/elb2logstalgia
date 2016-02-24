@@ -5,7 +5,7 @@ module Elb2Logstalgia
 
       def initialize(*args, &block)
         begin
-          @parsed = String.new(*args)
+          @parsed = String.new(*args[0].to_s)
 
         rescue StandardError => e
           raise e

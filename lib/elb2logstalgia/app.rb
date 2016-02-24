@@ -7,8 +7,8 @@ module Elb2Logstalgia
 
     main do
       begin
-        ARGF.each do |line|
-          $stderr.puts line if options[:verbose]
+        while line = gets
+          $stderr.puts line.chomp if options[:verbose]
 
           entry = Elb2Logstalgia::Entry.new(_parseLine(line))
 
