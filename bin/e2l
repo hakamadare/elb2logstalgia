@@ -20,6 +20,8 @@ main do
       puts entry.output
     end
 
+  rescue Interrupt => e
+    raise "Keyboard interrupt, exiting."
   rescue StandardError => e
     raise e
   end
