@@ -12,8 +12,8 @@ include Elb2Logstalgia
 
 main do
   begin
-    ARGF.each do |line|
-      $stderr.puts line if options[:verbose]
+    while line = gets
+      $stderr.puts line.chomp if options[:verbose]
 
       entry = Elb2Logstalgia::Entry.new(parseLine(line))
 
@@ -26,6 +26,15 @@ main do
 end
 
 version Elb2Logstalgia::VERSION
-description 'Translate ELB log format to Logstalgia'
+description <<-DESCRIPTION.gsub(/^ {2}/,'')
+  Logstalgia (http://logstalgia.io) is a spectacular realtime visualisation
+  tool for web application access logs.  This tool ingests Amazon Web Services
+  Elastic Load Balancing access logs and emits log entries formatted according
+  to Logstalgia's custom log format.
+
+  Usage:
+
+      $ cat some_elb_access_log.log | e2l | logstalgia -
+  DESCRIPTION
 
 go!
