@@ -52,7 +52,7 @@ module Elb2Logstalgia
         end
 
         # now we can derive some additional values
-        derived_params = _deriveParams(params_hash, keys)
+        derived_params = _deriveParams(params_hash)
 
         super(derived_params)
 
