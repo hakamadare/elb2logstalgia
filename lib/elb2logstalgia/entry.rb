@@ -28,6 +28,7 @@ module Elb2Logstalgia
     def initialize(*args, &block)
       begin
         keys = [
+          :http,
           :timestamp,
           :hostname,
           :path,

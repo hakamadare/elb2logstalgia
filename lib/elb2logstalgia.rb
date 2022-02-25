@@ -11,6 +11,9 @@ module Elb2Logstalgia
 
       parsed = {}
 
+      # http
+      s.scan(/\S+\s+/)
+
       # timestamp
       parsed[:timestamp] = s.scan(/\S+/)
       s.scan(/\s+/)

@@ -9,8 +9,8 @@ module Elb2Logstalgia
         begin
           @parsed = IPAddr.new(*args)
 
-        rescue InvalidAddressError => e
-          @parsed = *args
+        # rescue InvalidAddressError => e
+          # @parsed = *args
 
         rescue StandardError => e
           raise e
